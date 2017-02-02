@@ -22,13 +22,19 @@ Vue.component('list', {
 
 
 const NotFound = { template: '<p>Page not found</p>' };
-const TimeScene = { template: '<p>Time Scene </p>' };
-const DateScene = { template: '<p><clock v-bind:time="date"></clock></p>' };
-
-const routes = {
-    '/time': TimeScene,
-    '/date': DateScene
+const TimeScene = {     props: ['date'],
+    template: '<b>jetzt kommt die zeit: {{ date }}</b>',
 };
+const DateScene = { template: '<p>date scene</p>' };
+
+const routes = [
+    { path: '/time', component: TimeScene },
+    { path: '/date', component: DateScene }
+];
+
+const router = new VueRouter({
+    routes // short for routes: routes
+});
 
 const app = new Vue({
     el: '#app',
@@ -45,10 +51,12 @@ const app = new Vue({
         updateScene : function () {
             if (this.currentRoute == "/date"){
                 this.currentRoute = "/time";
+                router.replace("/time");
                 console.log("time");
             }
             else {
                 this.currentRoute = "/date";
+                router.replace("/date");
                 console.log("date");
             }
         }
@@ -58,10 +66,5 @@ const app = new Vue({
         setInterval(this.updateScene, 5000)
         setInterval(this.updateTime, 1000)
     },
-    computed: {
-        ViewComponent () {
-            return routes[this.currentRoute] || NotFound
-        }
-    },
-    render (h) { return h(this.ViewComponent) }
+    router: router
 });
