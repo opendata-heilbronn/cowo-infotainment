@@ -8,7 +8,10 @@
       About page
     </nuxt-link>
     <nuxt-link class="button" to="/time">
-          Time page
+      Time page
+    </nuxt-link>
+    <nuxt-link class="button" to="/meetupScene">
+      Meetup
     </nuxt-link>
   </section>
 </template>

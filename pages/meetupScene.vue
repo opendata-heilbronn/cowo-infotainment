@@ -4,10 +4,9 @@
 
         <ul >
             <li v-for="event in events">
-                <p>{{event.name}}</p>
-                <b>{{event.time}}</b>
-                <p>{{event.remaining}}</p>
-
+                <h1>{{event.name}}</h1>
+                <h3>{{event.time}}</h3>
+                <p>{{event.remaining}}, {{event.yesRsvpCount}} Zusagen</p>
                 <google-map v-bind:lat="event.lat" v-bind:lon="event.lon" />
             </li>
         </ul>
@@ -27,6 +26,7 @@
         return {"name": event.name,
             "lat": event.venue.lat,
             "lon": event.venue.lon,
+            "yesRsvpCount" : event.yes_rsvp_count,
             "time": time.format("DD. MMMM YYYY HH:mm"),
             "remaining": remaining};
     };
