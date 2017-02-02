@@ -63,8 +63,8 @@ const app = new Vue({
     },
     created: function () {
         console.log('created app');
-        setInterval(this.updateScene, 5000)
-        setInterval(this.updateTime, 1000)
+        setInterval(this.updateScene, 5000);
+        setInterval(this.updateTime, 1000);
     },
     router: router
 });
