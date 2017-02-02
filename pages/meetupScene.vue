@@ -1,20 +1,32 @@
 <template>
     <section class="container">
         Aktuelle Meetup Termine
-        <p>{{event.name}}</p>
-        <b>{{event.time}}</b>
-        <p>{{event.remaining}}</p>
+
+        <ul >
+            <li v-for="event in events">
+                <p>{{event.name}}</p>
+                <b>{{event.time}}</b>
+                <p>{{event.remaining}}</p>
+
+                <google-map v-bind:lat="event.lat" v-bind:lon="event.lon" />
+            </li>
+        </ul>
 
     </section>
 </template>
 <script>
     import axios from 'axios'
     import moment from 'moment'
+    import GoogleMap from '~components/Map.vue'
+
+    let futureEvents = [];
 
     const createEvent = function (event) {
         const time = moment(event.time);
         const remaining = time.fromNow();
         return {"name": event.name,
+            "lat": event.venue.lat,
+            "lon": event.venue.lon,
             "time": time.format("DD. MMMM YYYY HH:mm"),
             "remaining": remaining};
     };
@@ -25,14 +37,18 @@
         })
     };
 
+    const toggleEvents = function () {
+
+    };
+
     export default {
         data ({req}) {
-            return axios.get('https://api.meetup.com/codeforhn/events?&sign=true&photo-host=public&page=5&status=upcoming')
+            return axios.get('https://api.meetup.com/codeforhn/events?&sign=true&photo-host=public&page=6&status=upcoming')
                 .then((res) => {
-                    console.log(res.data);
-                    const futureEvents = filterEvents(res.data);
+                    console.log("in data");
+                    const futureEvents = filterEvents(res.data).map(createEvent);
                     return {
-                        event: createEvent(futureEvents[0]),
+                        event: futureEvents[0],
                         events: futureEvents
                     }
                 })
@@ -41,6 +57,9 @@
             return {
                 title: 'Aktuelle Termine'
             }
+        },
+        components: {
+            GoogleMap
         }
     }
 </script>
