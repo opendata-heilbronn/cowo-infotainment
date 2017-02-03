@@ -3,12 +3,12 @@ var moment = require('moment');
 
 const baseURL = "http://efa-bw.de/nvbw/XML_DM_REQUEST";
 
-const stationQuery = "5200026"; //Heilbronn Hauptbahnhof
+//const stationQuery = "5200026"; //Heilbronn Hauptbahnhof
 //const stationQuery = "Heilbronn, Harmonie (Stadtbahn)";
-//const stationQuery = "Heilbronn Wollhausplatz"
+const stationQuery = "Heilbronn Wollhausplatz"
 
 var dateStr = moment().format('YYYYMMDD');
-var timeStr = moment().subtract(5, 'hours').format('HHmm');
+var timeStr = moment().format('HHmm');
 console.log(dateStr, timeStr);
 
 firstRequest();
@@ -17,9 +17,7 @@ function callback(data) {
     //console.log(data.departureList[0]);
     data.departureList.forEach((elem) => {
         var tmpString = "";
-        var d = elem.dateTime;
-        var tmpDateString = [d.year, d.month, d.day].join('.') + 'T' + [d.hour, d.minute].join(':');
-        var time = moment(tmpDateString, "YYYY[.]MM[.]DD[T]HH[:]mm");
+        var time = moment(elem.dateTime); //luckily all dateTime object keys match with the moment object keys
         tmpString += time.format('DD.MM. HH:mm') + ' | ';
         tmpString += elem.platform + ' | ';
         var l = elem.servingLine;
