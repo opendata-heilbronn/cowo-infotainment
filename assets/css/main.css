@@ -21,8 +21,7 @@ a, a:hover, a:focus, a:visited
 }
 
 .logo {
-  width: 243px;
-  height: 218px;
+  width: 50%;
 }
 
 .page-enter-active, .page-leave-active
