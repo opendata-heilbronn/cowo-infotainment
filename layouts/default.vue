@@ -1,13 +1,8 @@
 <template>
   <div>
-  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top" style="justify-content:space-between">
     <a class="navbar-brand" href="#">Coworking Space</a>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    </div>
+    <div style="color: white">{{ time }}</div>
   </nav>
 
   <div class="container">
@@ -17,13 +12,17 @@
 </template>
 
 <script>
-import MyFooter from '~components/Footer.vue'
+    import moment from 'moment'
+    var timeData = {time: ""};
+    export default {
+        data () {
+            return timeData;
+        }
+    }
+    setInterval(function(){
+        timeData.time = moment().format("DD.MMMM YYYY HH:mm:ss");
+    }, 1000);
 
-export default {
-  components: {
-    MyFooter
-  }
-}
 </script>
 
 <style>
