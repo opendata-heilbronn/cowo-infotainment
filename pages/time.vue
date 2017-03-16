@@ -1,13 +1,7 @@
 <template>
   <section class="container">
-    <img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
+    <h1> Aktuelle Zeit </h1>
     <h1> {{ time }} </h1>
-    <nuxt-link class="button" to="/">
-      Home page
-    </nuxt-link>
-    <nuxt-link class="button" to="/about">
-       About page
-    </nuxt-link>
   </section>
 </template>
 <script>
@@ -17,8 +11,15 @@ import moment from 'moment'
 var timeData = {time: ""};
 
 export default {
-  data () {
-    return timeData;
+  data (context) {
+      if (context.isClient) {
+          setTimeout(function () {
+              console.log("redirect now");
+              context.redirect(200, "/");
+          }, 4000);
+      }
+
+      return timeData;
   },
   head () {
     return {
@@ -28,7 +29,7 @@ export default {
 }
 
 setInterval(function(){
-    timeData.time = moment().format("DD:MMMM:YYYY HH:mm:ss");
+    timeData.time = moment().format("DD.MMMM.YYYY HH:mm:ss");
 }, 1000);
 
 </script>
