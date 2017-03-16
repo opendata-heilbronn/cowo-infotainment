@@ -13,15 +13,19 @@
 
 <script>
     import moment from 'moment'
+    moment.locale('de');
     var timeData = {time: ""};
+    var updateTime = function () {
+        timeData.time = moment().format("dddd, DD.MMMM YYYY HH:mm:ss");
+    };
+
     export default {
         data () {
+            updateTime()
             return timeData;
         }
     }
-    setInterval(function(){
-        timeData.time = moment().format("DD.MMMM YYYY HH:mm:ss");
-    }, 1000);
+    setInterval(updateTime, 1000);
 
 </script>
 

@@ -18,6 +18,7 @@ module.exports = {
             {src: "https://code.jquery.com/jquery-3.1.1.slim.min.js"},
             {src: "https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"},
             {src: "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"},
+            {src: "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/de.js"},
             {src: "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"}
         ]
     },

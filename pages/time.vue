@@ -1,53 +1,50 @@
 <template>
-  <section class="container">
-    <h1> Aktuelle Zeit </h1>
-    <h1> {{ time }} </h1>
-  </section>
+    <section class="container">
+        <h1> Aktuelle Zeit </h1>
+        <h1> {{ time }} </h1>
+    </section>
 </template>
 <script>
+    import moment from 'moment'
+    moment.locale('de');
 
-import moment from 'moment'
+    var timeData = {time: ""};
+    var updateTime = function () {
+        timeData.time = moment().format("dddd, DD.MMMM YYYY HH:mm:ss");
+    };
 
-var timeData = {time: ""};
+    export default {
+        data() {
+            updateTime();
+            return timeData;
+        },
+        mounted() {
+            console.log("mounted: ");
+            var router = this.$router;
+            setTimeout(function () {
+                router.replace("/");
+            }, 4000);
+            setInterval(updateTime, 1000);
 
-export default {
-  data (context) {
-      if (context.isClient) {
-          setTimeout(function () {
-              console.log("redirect now");
-              context.redirect(200, "/");
-          }, 4000);
-      }
+        }
 
-      return timeData;
-  },
-  head () {
-    return {
-      title: `About Page (${this.name}-side)`
     }
-  }
-}
-
-setInterval(function(){
-    timeData.time = moment().format("DD.MMMM.YYYY HH:mm:ss");
-}, 1000);
 
 </script>
 
 <style scoped>
-.title
-{
-  margin-top: 50px;
-}
-.info
-{
-  font-weight: 300;
-  color: #9aabb1;
-  margin: 0;
-  margin-top: 10px;
-}
-.button
-{
-  margin-top: 50px;
-}
+    .title {
+        margin-top: 50px;
+    }
+
+    .info {
+        font-weight: 300;
+        color: #9aabb1;
+        margin: 0;
+        margin-top: 10px;
+    }
+
+    .button {
+        margin-top: 50px;
+    }
 </style>
