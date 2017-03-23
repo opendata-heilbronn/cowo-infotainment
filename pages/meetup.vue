@@ -1,6 +1,6 @@
 <template>
     <section class="container">
-        Aktuelle Meetup Termine
+        <h1>Aktuelle Meetup Termine</h1>
 
         <transition-group name="list-complete" tag="div">
             <span v-for="event in visibleEvents" v-bind:key="event.id" class="list-complete-item">
@@ -18,6 +18,7 @@
     import GoogleMap from '~components/Map.vue'
 
     var router = null;
+    const toggleTime = 8000;
 
     let futureEvents = [];
     let visibleEvents = [];
@@ -47,7 +48,7 @@
         if (visibleEvent < futureEvents.length-1) {
             visibleEvent++;
             visibleEvents.splice(0, 1, futureEvents[visibleEvent]);
-            setTimeout(toggleEvents, 8000);
+            setTimeout(toggleEvents, toggleTime);
         } else {
             setTimeout(function () {
                 router.replace("/time");
@@ -65,19 +66,18 @@
             }).then((res) => {
                 console.log("in data");
                 futureEvents = filterEvents(res.data).map(createEvent);
-                visibleEvents.push(futureEvents[0]);
+                visibleEvents.slice(0, 1, futureEvents[0]);
                 return {
-                    event: futureEvents[0],
-                    events: futureEvents,
                     visibleEvents: visibleEvents
                 }
             })
         },
         mounted() {
-            console.log("mounted meetup");
+            console.log("mounted meetup, visibleEvent: ", visibleEvent);
             visibleEvent = 0;
+            visibleEvents.slice(0, 1, futureEvents[0]);
             router = this.$router;
-            setTimeout(toggleEvents, 1000);
+            setTimeout(toggleEvents, toggleTime);
         },
         components: {
             GoogleMap
