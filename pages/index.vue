@@ -14,7 +14,7 @@
             console.log("mounted index");
             var that = this;
             setTimeout(function () {
-                that.$router.replace("/meetup");
+                that.$router.replace("/twitter");
             }, 1000);
         }
     }
