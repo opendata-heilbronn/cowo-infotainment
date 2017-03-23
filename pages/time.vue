@@ -19,13 +19,12 @@
             return timeData;
         },
         mounted() {
-            console.log("mounted: ");
+            console.log("mounted time");
             var router = this.$router;
             setTimeout(function () {
                 router.replace("/");
             }, 4000);
             setInterval(updateTime, 1000);
-
         }
 
     }

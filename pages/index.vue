@@ -10,17 +10,12 @@
 <script>
 
     export default {
-        data (context) {
-            console.log("timeout in data2 - ", context.route);
-            return {};
-        },
         mounted() {
-            console.log("mounted: ");
+            console.log("mounted index");
             var that = this;
             setTimeout(function () {
-                console.log("redirect in global settimeout: ", that.$router);
-                that.$router.replace("/time");
-            }, 4000);
+                that.$router.replace("/meetup");
+            }, 1000);
         }
     }
 
